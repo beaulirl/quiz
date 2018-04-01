@@ -1,0 +1,9 @@
+{% if all_levels %}
+    <ul>
+    {% for level in all_levels %}
+        <li><a href="/quiz/{{ level.level_number }}/tests/">{{ level.level_name }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No levels are available.</p>
+{% endif %}

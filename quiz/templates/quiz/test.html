@@ -1,0 +1,18 @@
+{% if random_questions %}
+    <form action="/quiz/{{ level_id }}/tests/results">
+    {% for question in random_questions %}
+		  <p>{{ question.title }}</p>
+		  <div>
+		  	{% for answer in  question.answers %}
+        		<input type="radio" id="contactChoice1" name="contact" value="email">
+		    	<label for="contactChoice1">{{ answer }}</label>
+        	{% endfor %}
+		  </div>
+	{% endfor %}
+	<div>
+		<button type="submit">Submit</button>
+	</div>
+	</form>
+{% else %}
+    <p>No tests are available.</p>
+{% endif %}
