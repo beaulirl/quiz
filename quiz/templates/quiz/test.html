@@ -1,10 +1,11 @@
 {% if random_questions %}
-    <form action="/quiz/{{ level_id }}/tests/results">
+    <form action="/quiz/{{ level_id }}/tests/results/" method="POST">
+    {% csrf_token %}
     {% for question in random_questions %}
-		  <p>{{ question.title }}</p>
+		  <p>{{ question.title.question_text }}</p>
 		  <div>
 		  	{% for answer in  question.answers %}
-        		<input type="radio" id="contactChoice1" name="contact" value="email">
+        		<input type="radio" id="answer_{{answer.id}}" name="{{ question.title.id }}" value="{{ answer.id }}">
 		    	<label for="contactChoice1">{{ answer }}</label>
         	{% endfor %}
 		  </div>
@@ -13,6 +14,7 @@
 		<button type="submit">Submit</button>
 	</div>
 	</form>
-{% else %}
-    <p>No tests are available.</p>
+{% elif correct or wrong %}
+    <p>Correct answers: {{ correct }}</p>
+	<p>Wrong answers: {{ wrong }}</p>
 {% endif %}

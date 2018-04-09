@@ -12,13 +12,20 @@ class Level(models.Model):
 	level_name = models.CharField(max_length=200)
 	def __str__(self):
 		return self.level_name
-   
 
+
+class Language(models.Model):
+	language_name = models.CharField(max_length=200)
+
+	def __str__(self):
+		return self.language_name
+   
 
 class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
     level = models.ForeignKey(Level, on_delete=models.CASCADE, to_field='level_number', default=1)
+    language_id = models.ForeignKey(Language, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
     	return self.question_text
@@ -37,6 +44,7 @@ class User(models.Model):
 	name = models.CharField(max_length=200)
 	surname = models.CharField(max_length=200)
 	role = models.CharField(max_length=200)
+	password = models.CharField(max_length=200)
 
 
 class Test(models.Model):
