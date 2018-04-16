@@ -1,5 +1,8 @@
 from django.db import models
 
+from django.contrib.auth.models import User
+
+
 # Create your models here.	
 class Level(models.Model):
 
@@ -40,16 +43,19 @@ class Answer(models.Model):
     	return self.answer_text
 
 
-class User(models.Model):
-	name = models.CharField(max_length=200)
-	surname = models.CharField(max_length=200)
-	role = models.CharField(max_length=200)
-	password = models.CharField(max_length=200)
+# class User(models.Model):
+# 	name = models.CharField(max_length=200)
+# 	surname = models.CharField(max_length=200)
+# 	role = models.CharField(max_length=200)
+# 	password = models.CharField(max_length=200)
 
 
 class Test(models.Model):
 	user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 	date = models.DateTimeField('date published')
+
+	def __str__(self):
+		return str(self.id)
 
 
 class TestQuestion(models.Model):

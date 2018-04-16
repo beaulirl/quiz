@@ -1,5 +1,5 @@
 {% if random_questions %}
-    <form action="/quiz/{{ level_id }}/tests/results/" method="POST">
+    <form action="/quiz/{{ level_id }}/tests/{{ test_id }}/results/" method="POST">
     {% csrf_token %}
     {% for question in random_questions %}
 		  <p>{{ question.title.question_text }}</p>
@@ -14,7 +14,7 @@
 		<button type="submit">Submit</button>
 	</div>
 	</form>
-{% elif correct or wrong %}
+<!-- {% elif correct or wrong %}
     <p>Correct answers: {{ correct }}</p>
 	<p>Wrong answers: {{ wrong }}</p>
-{% endif %}
+{% endif %} -->

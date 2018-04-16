@@ -1,9 +1,8 @@
  {% if log %}
-    <p>log</p>
-    <!-- <p>Please, try again</p> -->
+    <p>{{ log }} or <a href="/quiz/register/">Register</a></p>
  {% endif %}
 
- <form action="/quiz/login/" method="POST">
+ <form action="/quiz/login/check/" method="POST">
   {% csrf_token %}
   <div class="container">
     <label for="uname"><b>Username</b></label>
@@ -12,13 +11,11 @@
     <label for="psw"><b>Password</b></label>
     <input type="password" placeholder="Enter Password" name="psw" required>
 
+    <input type="hidden" name="login">
+
+
     <button type="submit">Login</button>
-    <label>
-      <input type="checkbox" checked="checked" name="remember"> Remember me
-    </label>
+
   </div>
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
+
 </form> 
