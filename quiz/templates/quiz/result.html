@@ -1,16 +1,30 @@
-<table>
-	<tr>
-		<td>User</td>
-		<td>Test</td>
-		<td>Time</td>
-		<td>Correct</td>
-		<td>Wrong</td>
-	</tr>
-	<tr>
-		<td>{{ user }}</td>
-		<td>{{ test }}</td>
-		<td>{{ date }}</td>
-		<td>{{ correct }}</td>
-		<td>{{ wrong }}</td>
-	</tr>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.css">
+
+<table class="ui celled padded table">
+  <thead>
+    <tr><th class="single line">User</th>
+    <th>Test</th>
+    <th>Time</th>
+    <th>Correct</th>
+    <th>Wrong</th>
+  </tr></thead>
+  <tbody>
+    <tr>
+	  <td class="single line">
+        {{ user }}
+      </td>
+      <td class="single line">
+        {{ test }}
+      </td>
+      <td class="single line">
+        {{ date }}
+      </td>
+      <td class="single line">
+        {{ correct }}
+      </td>
+      <td class="single line">
+        {{ wrong }}
+      </td>
+    </tr>
+  </tbody>
 </table>

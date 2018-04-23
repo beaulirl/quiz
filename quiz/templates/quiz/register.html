@@ -1,19 +1,32 @@
-<form action="/quiz/register_user/" method="POST">
-  {% csrf_token %}
-  <div class="container">
-    <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.css">
 
-    <label for="email"><b>Email</b></label>
+<div class="ui  equal width grid">
+<div class="colomn"></div>
+<div class="four wide centered column">
+<div class="colomn">
+<form class="ui form" action="/quiz/register_user/" method="POST">
+    {% csrf_token %}
+  <div class="field">
+    <label for="uname">Username</label>
+    <input type="text" name="uname" placeholder="Enter Username" required>
+  </div>
+  <div class="field">
+    <label for="psw">Password</label>
+    <input type="password" name="psw" placeholder="Password" required>
+  </div>
+  <div class="field">
+    <label for="email">Email</label>
     <input type="text" placeholder="Enter Email" name="email" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
-
-    <button type="submit">Register</button>
   </div>
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="cancelbtn">Cancel</button>
-    <span class="psw">Forgot <a href="#">password?</a></span>
-  </div>
-</form> 
+  <div class="inline fields">
+  <button class="ui button left floated" type="submit">Register</button>
+</form>
+</div>
+</div>
+</div>
+<div class="colomn"></div>
+</div>
+<!--  {% if log %}
+    <p>{{ log }} or <a href="/quiz/register/">Register</a></p>
+ {% endif %}
+ -->

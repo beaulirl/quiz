@@ -41,7 +41,11 @@ def register_user(request):
 
 
 def test(request, language_id, level_id):
-	user = User.objects.get(pk=request.session['user'])
+
+	try:
+		user = User.objects.get(pk=request.session['user'])
+	except KeyError:
+		user = User.objects.get(username='GUEST')
 	test = Test(user_id=user, date=datetime.datetime.now())
 	test.save()
 	random_questions = Question.objects.filter(level=level_id, language_id=language_id).order_by('?')[:3]
@@ -57,9 +61,12 @@ def test(request, language_id, level_id):
 	context = {
 		'random_questions': questions, 
 		'level_id': level_id,
-		'test_id': test.id
+		'test_id': test.id if test else None
 	}
 	return render(request, 'quiz/test.html', context)
+
+
+
 
 
 def result(request, level_id, test_id):

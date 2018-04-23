@@ -1,20 +1,53 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.css">
+<link rel="stylesheet" href="quiz.css">
+
 {% if random_questions %}
-    <form action="/quiz/{{ level_id }}/tests/{{ test_id }}/results/" method="POST">
+<div class="ui middle aligned centered aligned grid">
+  <!-- <div class="column"> -->
+  <div class="four wide column">
+    <div class="ui segment">
+      <form class="ui massive form" action="/quiz/{{ level_id }}/tests/{{ test_id }}/results/" method="POST">	
+    	{% csrf_token %}
+    	{% for question in random_questions %}
+	    	  <div class="grouped fields">
+	    	  <label for="{{ question.title.id }}" style="line-height: 30px">{{ question.title.question_text }}</label>
+			  {% for answer in  question.answers %}
+		  		<div class="field">
+      			    <div class="ui huge radio checkbox">
+        				<input type="radio" id="answer_{{ answer.id }}" name="{{ question.title.id }}"  tabindex="0"  value="{{ answer.id }}">
+        				<label for="contactChoice1">{{ answer }}</label>
+      				</div>
+   				 </div>
+        	{% endfor %}
+		  	  </div>  
+	{% endfor %}
+	<div>
+		<button class="ui button" type="submit">Submit</button>
+	</div>
+	</form>
+    </div>
+   </div>
+  <!-- </div> -->
+  <!-- <div class="column"></div> -->
+</div>
+{% endif %}
+<!-- 
+    <form class="ui form" action="/quiz/{{ level_id }}/tests/{{ test_id }}/results/" method="POST">	
     {% csrf_token %}
     {% for question in random_questions %}
-		  <p>{{ question.title.question_text }}</p>
-		  <div>
+    	  <div class="grouped fields">
+    	  <label for="{{ question.title.id }}">{{ question.title.question_text }}</label>
 		  	{% for answer in  question.answers %}
-        		<input type="radio" id="answer_{{answer.id}}" name="{{ question.title.id }}" value="{{ answer.id }}">
-		    	<label for="contactChoice1">{{ answer }}</label>
+		  		<div class="field">
+      			    <div class="ui radio checkbox">
+        				<input type="radio" id="answer_{{ answer.id }}" name="{{ question.title.id }}"  tabindex="0"  value="{{ answer.id }}">
+        				<label for="contactChoice1">{{ answer }}</label>
+      				</div>
+   				 </div>
         	{% endfor %}
 		  </div>
 	{% endfor %}
 	<div>
-		<button type="submit">Submit</button>
+		<button class="ui button" type="submit">Submit</button>
 	</div>
-	</form>
-<!-- {% elif correct or wrong %}
-    <p>Correct answers: {{ correct }}</p>
-	<p>Wrong answers: {{ wrong }}</p>
-{% endif %} -->
+	</form> -->

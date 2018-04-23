@@ -1,25 +1,52 @@
-<head>	
+<head>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.3.1/dist/semantic.min.css">	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<form action="/quiz/1/0/test/" method="POST">
-	{% csrf_token %}
-	<div>
-    {% for level in all_levels %}
-		  <input name="group_level" class="level" type="radio" id="level_{{level.level_number}}" value="{{ level.level_number  }}">	
-		  <label>{{ level.level_name }}</label>	
-	{% endfor %}
-    </div>
-    <div>
-	{% for language in all_languages %}
-		  <input name="group_language" class="language" type="radio" id="language_{{language.id}}" value="{{ language.id  }}">	 
-		  <label>{{ language.language_name }}</label>	
-	{% endfor %}
+<div class="ui equal width grid">
+	<div class="column">
+	    <!-- <div class="ui segment"></div> -->
+	 </div>
+	<div class="centered row">
+	<div class="eight wide column">
+		<div class="ui segment">
+			<form class="ui form" action="/quiz/1/0/test/" method="POST" align="center">
+				{% csrf_token %}
+				<!-- <div class="ui two column centered grid"> -->
+					<div class="inline fields">
+						<!-- <div class="column"> -->
+						<label for="group_level">Select your level:</label>
+					    {% for level in all_levels %}
+					    <div class="field">
+						    <div class="ui radio checkbox">
+								  <input name="group_level" class="level" type="radio" id="level_{{level.level_number}}" value="{{ level.level_number  }}">	
+								  <label>{{ level.level_name }}</label>	
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+					<div class="inline fields">
+						<label for="group_language">Select your language:</label>
+					    {% for language in all_languages %}
+					    <div class="field">
+						    <div class="ui radio checkbox">
+							  <input name="group_language" class="language" type="radio" id="language_{{language.id}}" value="{{ language.id  }}">	 
+							  <label>{{ language.language_name }}</label>	
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				<input type="hidden" name="user" value="{{ user }}">
+				<div>
+					<button class="ui button" type="submit">Submit</button>
+				</div>
+			</form>
+		</div>
 	</div>
-	<input type="hidden" name="user" value="{{ user }}">
-	<div>
-		<button type="submit">Submit</button>
 	</div>
-</form>
+	<div class="column">
+	    <!-- <div class="ui segment"></div> -->
+  	</div>
+</div>
 
 
 <script>
