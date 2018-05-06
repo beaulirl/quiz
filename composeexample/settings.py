@@ -25,7 +25,7 @@ SECRET_KEY = 's-^%1t1uf%lmi_f1q^#=*xb(liec%xh8m*uo%)is7pbd@y71%&'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['boiling-depths-75692.herokuapp.com']
 
 
 # Application definition

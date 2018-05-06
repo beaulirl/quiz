@@ -5,15 +5,13 @@ from random import shuffle
 import datetime
 
 from django.template import loader
+from django.core.exceptions import ObjectDoesNotExist
 
-# Create your views here.
 from django.http import HttpResponse
 
 from django.shortcuts import redirect
 
 from .models import Question, Level, Answer, Language, User, Test, TestQuestion
-
-# from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate
 
@@ -41,15 +39,16 @@ def register_user(request):
 
 
 def test(request, language_id, level_id):
-
 	try:
 		user = User.objects.get(pk=request.session['user'])
-	except KeyError:
+	except (KeyError, ObjectDoesNotExist):
 		user = User.objects.get(username='GUEST')
+
 	test = Test(user_id=user, date=datetime.datetime.now())
 	test.save()
 	random_questions = Question.objects.filter(level=level_id, language_id=language_id).order_by('?')[:3]
 	questions = []
+
 	for question in random_questions:
 		q = {'title': question, 'answers': []}		
 		answers = Answer.objects.filter(question=question)
@@ -58,15 +57,14 @@ def test(request, language_id, level_id):
 		for answer in answers:
 			q['answers'].append(answer)
 		questions.append(q)
+
 	context = {
 		'random_questions': questions, 
 		'level_id': level_id,
 		'test_id': test.id if test else None
 	}
+
 	return render(request, 'quiz/test.html', context)
-
-
-
 
 
 def result(request, level_id, test_id):
@@ -74,6 +72,7 @@ def result(request, level_id, test_id):
 	wrong = 0
 	user = Test.objects.get(id=test_id).user_id
 	date = Test.objects.get(id=test_id).date
+
 	for k, v in request.POST.items():
 		if k != 'csrfmiddlewaretoken':
 			if Answer.objects.get(id=v).is_correct:
@@ -88,6 +87,7 @@ def result(request, level_id, test_id):
 		'date': date,
 		'test': test_id
 	}
+
 	return render(request, 'quiz/result.html', context)
 
 
@@ -104,3 +104,7 @@ def parse(request):
 	request.session['user'] = user.id
 	return redirect(level)
 
+
+def logout(request):
+	request.session['user'] = None
+	return redirect(login)
